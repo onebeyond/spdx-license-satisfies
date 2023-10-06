@@ -17,6 +17,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "nanotower",
+      "name": "Fernando de la Torre",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50929081?v=4",
+      "profile": "https://www.one-beyond.com/",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
