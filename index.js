@@ -120,23 +120,91 @@ function sort (licenseList) {
   })
 }
 
-function isANDCompatible (parsedExpression, parsedLicenses) {
-  return parsedExpression.every(function (element) {
-    return parsedLicenses.some(function (approvedLicense) {
-      return licensesAreCompatible(element, approvedLicense)
+/**
+ * Checks if all the licenses on the first argument are satisfied by any license on the second argument.
+ * @param {object[]} one - Source licenses.
+ * @param {object[]} two - Target licenses.
+ * @return {boolean} - Whether all the licenses on the first argument are satisfied by the target licenses.
+ */
+function isExpressionCompatible (one, two) {
+  if (one.length !== two.length) return false
+  return one.every(function (o) {
+    return two.some(function (t) { return licensesAreCompatible(o, t) })
+  })
+}
+
+/**
+ * Checks whether any group of licenses satisfies any target group of licenses.
+ * e.g. [[MIT], [GPL-1.0+, Apache-2.0]] checked against
+ * [[ISC, GPL-2.0], [GPL-2.0, Apache-2.0]] will return true.
+ * @param {(object[])[]} one - Groups of licenses to be checked.
+ * @param {(object[])[]} two - Target groups of licenses.
+ * @return {boolean} - Whether any group of licenses in "one" satisfies any group of licenses of the "two" (the target).
+ */
+function anyExpressionCompatible (one, two) {
+  return one.some(function (o) {
+    return two.some(function (t) {
+      return isExpressionCompatible(o, t)
     })
   })
 }
 
-function satisfies (spdxExpression, arrayOfLicenses) {
-  var parsedExpression = expand(replaceGPLOnlyOrLaterWithRanges(parse(spdxExpression)))
-  var parsedLicenses = arrayOfLicenses.map(function (l) { return replaceGPLOnlyOrLaterWithRanges(parse(l)) })
-  for (const parsed of parsedLicenses) {
-    if (parsed.hasOwnProperty('conjunction')) {
-      throw new Error('Approved licenses cannot be AND or OR expressions.')
-    }
+function checkArguments (first, second) {
+  if (first.type === 'string' && second.type === 'string') {
+    if (typeof first.value !== 'string' || typeof second.value !== 'string') throw new Error('Both arguments must be string.')
+  } else {
+    if (typeof first.value !== 'string') throw new Error('First argument must be string.')
+    if (!Array.isArray(second.value)) throw new Error('Second argument must be array.')
   }
-  return parsedExpression.some(function (o) { return isANDCompatible(o, parsedLicenses) })
 }
 
-module.exports = satisfies
+/**
+ * Check if "first" satisfies "second".
+ * @param {string} first - A valid SPDX expression to be tested.
+ * @param {string} second - A valid SDPX expression to be tested against.
+ * @return {boolean} - Whether "first" satisfies "second".
+ */
+function satisfies (first, second) {
+  checkArguments({ value: first, type: 'string' }, { value: second, type: 'string' })
+  var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
+  var two = expand(replaceGPLOnlyOrLaterWithRanges(parse(second)))
+  return anyExpressionCompatible(one, two)
+}
+
+function parseLicensesArray (licenses) {
+  var parsed = licenses.map(l => replaceGPLOnlyOrLaterWithRanges(parse(l)))
+  if (parsed.some(({ conjunction }) => !!conjunction)) throw new Error('AND and OR operators are not allowed.')
+  return parsed
+}
+
+/**
+ * Check if "first" satisfies any of the licenses in "second".
+ * @param {string} first - A valid SPDX expression to be tested.
+ * @param {string[]} second - A list of licenses. AND and OR operators are not allowed.
+ * @return {boolean} - Whether "first" satisfies any license in "second".
+ */
+function satisfiesAny (first, second) {
+  checkArguments({value: first, type: 'string'}, {value: second, type: 'array'})
+  var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
+  var two = parseLicensesArray(second).map(l => expand(l).flat())
+  return anyExpressionCompatible(one, two)
+}
+
+/**
+ * Check if "first" satisfies all the license in "second".
+ * @param {string} first - A valid SPDX expression to be tested.
+ * @param {string[]} second - A list of licenses. AND and OR operators are not allowed.
+ * @return {boolean} - Whether "first" satisfies all licenses in "second".
+ */
+function satisfiesAll (first, second) {
+  checkArguments({value: first, type: 'string'}, {value: second, type: 'array'})
+  var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
+  var two = [parseLicensesArray(second)]
+  return anyExpressionCompatible(one, two)
+}
+
+module.exports = {
+  satisfies,
+  satisfiesAny,
+  satisfiesAll
+}
