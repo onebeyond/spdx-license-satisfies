@@ -1,4 +1,7 @@
 # spdx-license-satisfies
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This project is a fork from [jslicense/spdx-satisfies.js](https://github.com/jslicense/spdx-satisfies.js). Please, note that the interface is slightly different.
 
@@ -44,3 +47,25 @@ satisfiesAll('MIT OR GPL-1.0', ['MIT','GPL-1.0']) // false
 ## Examples
 
 See a list with more [examples](./test/cases.js).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/neodmy"><img src="https://avatars.githubusercontent.com/u/36865163?v=4?s=100" width="100px;" alt="David Miguel Yusta"/><br /><sub><b>David Miguel Yusta</b></sub></a><br /><a href="https://github.com/onebeyond/spdx-license-satisfies/commits?author=neodmy" title="Code">💻</a> <a href="https://github.com/onebeyond/spdx-license-satisfies/commits?author=neodmy" title="Documentation">📖</a> <a href="https://github.com/onebeyond/spdx-license-satisfies/commits?author=neodmy" title="Tests">⚠️</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
