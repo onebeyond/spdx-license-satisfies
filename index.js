@@ -149,6 +149,14 @@ function anyExpressionCompatible (one, two) {
   })
 }
 
+function checkArguments (first, second) {
+  if (first.type === 'string' && second.type === 'string') {
+    if (typeof first.value !== 'string' || typeof second.value !== 'string') throw new Error('Both arguments must be string.')
+  } else {
+    if (typeof first.value !== 'string') throw new Error('First argument must be string.')
+    if (!Array.isArray(second.value)) throw new Error('Second argument must be array.')
+  }
+}
 
 /**
  * Check if "first" satisfies "second".
@@ -157,10 +165,46 @@ function anyExpressionCompatible (one, two) {
  * @return {boolean} - Whether "first" satisfies "second".
  */
 function satisfies (first, second) {
-  if (typeof first !== 'string' || typeof second !== 'string') throw new Error('Both arguments must be string.')
+  checkArguments({ value: first, type: 'string' }, { value: second, type: 'string' })
   var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
   var two = expand(replaceGPLOnlyOrLaterWithRanges(parse(second)))
   return anyExpressionCompatible(one, two)
 }
 
-module.exports = satisfies
+function parseLicensesArray (licenses) {
+  var parsed = licenses.map(l => replaceGPLOnlyOrLaterWithRanges(parse(l)))
+  if (parsed.some(({ conjunction }) => !!conjunction)) throw new Error('AND and OR operators are not allowed.')
+  return parsed
+}
+
+/**
+ * Check if "first" satisfies any of the licenses in "second".
+ * @param {string} first - A valid SPDX expression to be tested.
+ * @param {string[]} second - A list of licenses. AND and OR operators are not allowed.
+ * @return {boolean} - Whether "first" satisfies any license in "second".
+ */
+function satisfiesAny (first, second) {
+  checkArguments({value: first, type: 'string'}, {value: second, type: 'array'})
+  var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
+  var two = parseLicensesArray(second).map(l => expand(l).flat())
+  return anyExpressionCompatible(one, two)
+}
+
+/**
+ * Check if "first" satisfies all the license in "second".
+ * @param {string} first - A valid SPDX expression to be tested.
+ * @param {string[]} second - A list of licenses. AND and OR operators are not allowed.
+ * @return {boolean} - Whether "first" satisfies all licenses in "second".
+ */
+function satisfiesAll (first, second) {
+  checkArguments({value: first, type: 'string'}, {value: second, type: 'array'})
+  var one = expand(replaceGPLOnlyOrLaterWithRanges(parse(first)))
+  var two = [parseLicensesArray(second)]
+  return anyExpressionCompatible(one, two)
+}
+
+module.exports = {
+  satisfies,
+  satisfiesAny,
+  satisfiesAll
+}

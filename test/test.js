@@ -1,33 +1,27 @@
-const satisfies = require('../index')
-const cases = require('./cases');
+const api = require('../index')
+const cases = require('./cases')
 
-describe('satisfies', () => {
-  it('should throw if the first argument is not a string', () => {
-    let error;
-    try{
-      satisfies(['MIT'], 'Apache-2.0')
-    }catch (e) {
-      error = e;
-    } finally {
-      expect(error.message).toBe('Both arguments must be string.')
-    }
+Object.keys(api).forEach((f) => {
+  describe(f, () => {
+    test.each(cases[f].error)(
+      'should throw the error %p for satisfies(%p, %p)',
+      (message, first, second) => {
+        let error
+        try {
+          api[f](first, second)
+        } catch (e) {
+          error = e
+        } finally {
+          expect(error.message).toBe(message)
+        }
+      }
+    )
+
+    test.each(cases[f].valid)(
+      'should return %p for satisfies(%p, %p)',
+      (result, first, second) => {
+        expect(api[f](first, second)).toBe(result)
+      }
+    )
   })
-
-  it('should throw if the second argument is not a string', () => {
-    let error;
-    try{
-      satisfies('MIT', ['Apache-2.0'])
-    }catch (e) {
-      error = e;
-    } finally {
-      expect(error.message).toBe('Both arguments must be string.')
-    }
-  })
-
-  test.each(cases.satisfies)(
-    "should return %p for satisfies(%p, %p)",
-    (result, first, second) => {
-      expect(satisfies(first, second)).toBe(result)
-    }
-  )
 })
