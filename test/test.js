@@ -1,4 +1,4 @@
-const api = require('../index')
+const api = require('../src')
 const cases = require('./cases')
 
 Object.keys(api).forEach((f) => {
