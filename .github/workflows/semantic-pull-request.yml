@@ -1,0 +1,37 @@
+name: Semantic Pull Request
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+permissions:
+  pull-requests: read
+
+jobs:
+  semantic-pull-request:
+    name: Validate Pull Request title format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        with:
+          egress-policy: audit
+
+      - name: Semantic pull request
+        uses: amannn/action-semantic-pull-request@47b15d52c5c30e94a17ec87eb8dd51ff5221fed9 # v5.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Configure additional validation for the subject based on a regex.
+          # This ensures the subject doesn't start with an uppercase character.
+          subjectPattern: ^(?![A-Z]).+$
+          # If `subjectPattern` is configured, you can use this property to override
+          # the default error message that is shown when the pattern doesn't match.
+          # The variables `subject` and `title` can be used within the message.
+          subjectPatternError: |
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
