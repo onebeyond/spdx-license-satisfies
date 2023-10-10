@@ -1,12 +1,13 @@
 {
-  "name": "spdx-satisfies",
+  "name": "@one-beyond/spdx-license-satisfies",
   "description": "test whether SPDX expressions satisfy licensing criteria",
-  "version": "5.0.1",
+  "version": "1.0.0",
   "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com)",
   "contributors": [
     "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com)",
     "Dan Butvinik <butvinik@outlook.com>",
-    "Jeff McAffer <jeffmcaffer@gmail.com>"
+    "Jeff McAffer <jeffmcaffer@gmail.com>",
+    "David Yusta <david.yusta@one-beyond.com>"
   ],
   "dependencies": {
     "spdx-compare": "^1.0.0",
@@ -30,7 +31,14 @@
     "standards"
   ],
   "license": "MIT",
-  "repository": "kemitchell/spdx-satisfies.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onebeyond/spdx-license-satisfies.git"
+  },
+  "bugs": {
+    "url": "https://github.com/onebeyond/spdx-license-satisfies/issues"
+  },
+  "homepage": "https://github.com/onebeyond/spdx-license-satisfies#readme",
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
