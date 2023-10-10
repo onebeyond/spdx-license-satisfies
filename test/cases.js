@@ -33,11 +33,11 @@ const satisfies = {
 
     [true, 'GPL-2.0+ WITH Bison-exception-2.2', 'GPL-2.0+ WITH Bison-exception-2.2'],
     [false, 'GPL-2.0+ WITH Bison-exception-2.2', 'GPL-2.0+ WITH Bootloader-exception'],
-    [false, 'GPL-2.0+', 'GPL-2.0+ WITH Bootloader-exception'],
+    [false, 'GPL-2.0+', 'GPL-2.0+ WITH Bootloader-exception']
   ],
   error: [
     ['Both arguments must be string.', ['MIT'], 'Apache-2.0'],
-    ['Both arguments must be string.', 'MIT', ['Apache-2.0']],
+    ['Both arguments must be string.', 'MIT', ['Apache-2.0']]
   ]
 }
 
@@ -45,7 +45,7 @@ const satisfiesWithArrayErrors = [
   ['First argument must be string.', ['MIT'], ['Apache-2.0']],
   ['Second argument must be array.', 'MIT', 'Apache-2.0'],
   ['AND and OR operators are not allowed.', 'MIT', ['Apache-2.0', 'MIT AND GPL-1.0']],
-  ['AND and OR operators are not allowed.', 'MIT', ['Apache-2.0', 'MIT OR GPL-1.0']],
+  ['AND and OR operators are not allowed.', 'MIT', ['Apache-2.0', 'MIT OR GPL-1.0']]
 ]
 
 const satisfiesAny = {
@@ -55,14 +55,14 @@ const satisfiesAny = {
 
     [true, 'MIT OR GPL-1.0', ['MIT']],
     [true, 'MIT OR GPL-1.0', ['GPL-1.0']],
-    [true, 'MIT OR GPL-1.0', ['MIT','GPL-1.0']],
+    [true, 'MIT OR GPL-1.0', ['MIT', 'GPL-1.0']],
     [false, 'MIT OR GPL-1.0', ['Apache-2.0']],
 
     [true, '(MIT AND GPL-1.0) OR Apache-2.0', ['Apache-2.0']],
     [false, 'MIT AND GPL-1.0', ['GPL-1.0']],
     [false, 'MIT AND GPL-1.0', ['MIT']],
     [false, 'MIT AND GPL-1.0', ['MIT', 'GPL-1.0']],
-    [false, 'MIT AND GPL-1.0', ['Apache-2.0']],
+    [false, 'MIT AND GPL-1.0', ['Apache-2.0']]
   ],
   error: satisfiesWithArrayErrors
 }
@@ -80,8 +80,8 @@ const satisfiesAll = {
 
     [true, 'MIT OR GPL-1.0', ['MIT']],
     [true, 'MIT OR GPL-1.0', ['GPL-1.0']],
-    [false, 'MIT OR GPL-1.0', ['MIT','GPL-1.0']],
-    [false, 'MIT OR GPL-1.0', ['Apache-2.0']],
+    [false, 'MIT OR GPL-1.0', ['MIT', 'GPL-1.0']],
+    [false, 'MIT OR GPL-1.0', ['Apache-2.0']]
   ],
   error: satisfiesWithArrayErrors
 }
@@ -89,5 +89,5 @@ const satisfiesAll = {
 module.exports = {
   satisfies,
   satisfiesAny,
-  satisfiesAll,
+  satisfiesAll
 }
