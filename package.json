@@ -27,7 +27,7 @@
     "coverage": "jest --coverage",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
   },
   "lint-staged": {
     "*.js": "npm run lint:fix"
