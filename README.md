@@ -1,7 +1,15 @@
 # spdx-license-satisfies
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@onebeyond/spdx-license-satisfies" target="_blank"><img src="https://img.shields.io/npm/v/@onebeyond/spdx-license-satisfies.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@onebeyond/spdx-license-satisfies" target="_blank"><img src="https://img.shields.io/npm/dm/@onebeyond/spdx-license-satisfies.svg?style=flat-square" alt="npm downloads" /></a>
+  <a href="https://github.com/onebeyond/spdx-license-satisfies/actions/workflows/ci.yml" target="_blank"><img src="https://github.com/onebeyond/spdx-license-satisfies/actions/workflows/ci.yml/badge.svg" alt="ci workflow" /></a>
+  <a href="https://github.com/onebeyond/spdx-license-satisfies/actions/workflows/publish.yml" target="_blank"><img src="https://github.com/onebeyond/spdx-license-satisfies/actions/workflows/publish.yml/badge.svg" alt="publish workflow" /></a>
+  <a href="https://codeclimate.com/github/onebeyond/spdx-license-satisfies/maintainability"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/maintainability" /></a>
+  <a href="https://codeclimate.com/github/onebeyond/spdx-license-satisfies/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/test_coverage" /></a>
+  <a href="https://socket.dev/npm/package/@onebeyond/spdx-license-satisfies" target="_blank"><img src="https://socket.dev/api/badge/npm/package/@onebeyond/spdx-license-satisfies" alt="socket.dev" /></a>
+  <a href="https://img.shields.io/github/all-contributors/onebeyond/spdx-license-satisfies?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/spdx-license-satisfies?color=ee8449&style=flat-square" alt="all-contributors" /></a>
+</p>
 
 This project is a fork from [jslicense/spdx-satisfies.js](https://github.com/jslicense/spdx-satisfies.js). Please, note that the interface is slightly different.
 
