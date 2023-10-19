@@ -1,5 +1,5 @@
 {
-  "name": "@one-beyond/spdx-license-satisfies",
+  "name": "@onebeyond/spdx-license-satisfies",
   "description": "test whether SPDX expressions satisfy licensing criteria",
   "version": "1.0.0",
   "keywords": [
