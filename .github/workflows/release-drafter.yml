@@ -26,7 +26,7 @@ jobs:
           egress-policy: audit
       - uses: release-drafter/release-drafter@65c5fb495d1e69aa8c08a3317bc44ff8aabe9772 # v5.24.0
         with:
-          tag: v1.0.0
-          version: v1.0.0
+          tag: v1.0.1
+          version: v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
